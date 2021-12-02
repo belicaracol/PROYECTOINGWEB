@@ -1,11 +1,16 @@
 # Salud: TriviaSano OS3: salud y bienestar 
 # Prevencion y obesidad 
 
-Integrantes: Belinda Romo 
-             Javiera Iturra
-             Patricio Ibarra
-             Sebastián Morales 
+### Integrantes: 
+### Belinda Romo 
+### Javiera Iturra
+### Patricio Ibarra
+### Sebastián Morales 
   
+Instalación :
+## npm install 
+## ng serve 
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
 
