@@ -1,0 +1,387 @@
+<app-nav></app-nav>
+<div
+  class="container-expand d-flex justify-content-center flex-column"
+  style="
+    background-image: url(../../../assets/recursos/fondo4.png);
+    min-height: 800px;
+    padding: 2rem 5rem;
+    background-size: contain;
+  "
+>
+  <h1>Crear cuenta</h1>
+  <div class="row d-flex justify-content-center flex-column align-items-center">
+    <div class="col-12 col-sm-12 col-md-10 col-lg-10 col-xl-9 text-center">
+      <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+        <form id="form1">
+          <ul id="progressbar">
+            <li [ngClass]="{'active':show==1}" id="step1">
+              <strong>Información<br />personal</strong>
+            </li>
+            <li [ngClass]="{'active':show==2}" id="step2">
+              <strong>Información<br />médica</strong>
+            </li>
+            <li [ngClass]="{'active':show==3}" id="step3">
+              <strong>Gustos<br />personales</strong>
+            </li>
+          </ul>
+          <div *ngIf="show==1">
+            <fieldset>
+              <h2>Información base</h2>
+              <form [formGroup]="form1" class="row gx-4 gy-3 d-flex justify-content-evenly">
+                <div class="col-sm-3">
+                  <label>Nombre</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Andres Gallego"
+                    (keypress)="esLetra($event)"
+                    name="nombre"
+                    formControlName="nombre"
+                    [(ngModel)]="nombre"
+                    required
+                  />
+                </div>
+                <div class="col-sm-3">
+                  <label>Edad (en años) </label>
+                  <select class="form-select" id="edad" name="edad" [(ngModel)]="edad" formControlName="edad" required>
+                    <option selected hidden>Selecciona tu edad</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                  </select>
+                </div>
+                <div class="col-sm-4">
+                  <label>Correo Electronico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="andres@gmail.com"
+                    id="email"
+                    name="email" [(ngModel)]="email" required
+                    formControlName="email"
+                  />
+                </div>
+                <div class="col-sm-4">
+                  <label>Fecha de nacimiento</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    placeholder="Mes/Dia/Ano"
+                    formControlName="fnac"
+                    name="fnac" [(ngModel)]="fnac" required
+                  />
+                </div>
+                <div class="col-sm-4">
+                  <label>Contrasena</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="••••••••"
+                    formControlName="contrasena"
+                    name="contrasena" [(ngModel)]="contrasena" required
+                  />
+                </div>
+                <div class="col-sm-2">
+                  <label>Sexo</label>
+                  <select class="form-select" id="specificSizeSelect" name="sexo" [(ngModel)]="sexo" required formControlName="sexo">
+                    <option selected hidden >Escoge tu genero</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
+                </div>
+                <div>
+                  <span>nombre : </span>{{nombre}}
+                  <span>edad : </span>{{edad}}
+                  <span>email : </span>{{email}}
+                  <span>fnac : </span>{{fnac}}
+                  <span>sexo : </span>{{sexo}}
+                  <span>contrasena : </span>{{contrasena}}
+                </div>
+                <div class="col-sm-12" style="text-align: end;">
+                  <button type="button" class="btn btn-primary" (click)="form1valid()">
+                    Siguiente
+                  </button>
+                </div>
+              </form>
+            </fieldset>
+          </div>
+          <div *ngIf="show==2">
+            <fieldset>
+              <form id="form2" [formGroup]="form2" class="row gx-6 gy-5 d-flex justify-content-evenly">
+                <h2>Información médica</h2>
+                <div class="col-sm-2">
+                  <label>Estatura(cm)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="180"
+                    (keypress)="esNumero($event)"
+                    maxlength="3"
+                    name="estatura" [(ngModel)]="estatura" required
+                    formControlName="estatura"
+                  />
+                </div>
+                <div class="col-sm-2">
+                  <label>Peso(kg)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="72"
+                    (keypress)="esNumero($event)"
+                    maxlength="3"
+                    name="peso" [(ngModel)]="peso" required
+                    formControlName="peso"
+                  />
+                </div>
+                <h2>Comorbilidades</h2>
+                  <div class="col-4">
+                    <div><label>¿Presenta enfermedades cardiacas?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esCardiaco" id="ECsi" value="1" formControlName="esCardiaco" [(ngModel)]="esCardiaco" >
+                        <label class="form-check-label" for="ECsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esCardiaco" id="ECno" value="0" formControlName="esCardiaco" [(ngModel)]="esCardiaco">
+                        <label class="form-check-label" for="ECno">No</label>
+                      </div>
+                      <input *ngIf="esCardiaco == 1" type="text" name="esCardiacoCUAL" formControlName="esCardiacoCUAL" [(ngModel)]="esCardiacoCUAL" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div><label>¿Presenta enfermedades respiratorias?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esRespiratorio" id="ERsi" value="1" formControlName="esRespiratorio" [(ngModel)]="esRespiratorio" >
+                        <label class="form-check-label" for="ERsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esRespiratorio" id="ERno" value="0" formControlName="esRespiratorio" [(ngModel)]="esRespiratorio">
+                        <label class="form-check-label" for="ERno">No</label>
+                      </div>
+                      <input *ngIf="esRespiratorio == 1" name="esRespiratorioCUAL" formControlName="esRespiratorioCUAL" [(ngModel)]="esRespiratorioCUAL" type="text" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div><label>¿Has tenido alguna cirugia?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esCirugia" id="CIsi" value="1" formControlName="esCirugia" [(ngModel)]="esCirugia" >
+                        <label class="form-check-label" for="CIsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esCirugia" id="CIno" value="0" formControlName="esCirugia" [(ngModel)]="esCirugia">
+                        <label class="form-check-label" for="CIno">No</label>
+                      </div>
+                      <input *ngIf="esCirugia == 1" name="esCirugiaCUAL" formControlName="esCirugiaCUAL" [(ngModel)]="esCirugiaCUAL" type="text" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div><label>¿Has tenido alguna alergia?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esAlergia" id="ALsi" value="1" formControlName="esAlergia" [(ngModel)]="esAlergia" >
+                        <label class="form-check-label" for="ALsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esAlergia" id="ALno" value="0" formControlName="esAlergia" [(ngModel)]="esAlergia">
+                        <label class="form-check-label" for="ALno">No</label>
+                      </div>
+                      <input *ngIf="esAlergia == 1" name="esAlergiaCUAL" formControlName="esAlergiaCUAL" [(ngModel)]="esAlergiaCUAL" type="text" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div><label>¿Tienes enfermedades degenerativas?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esDegenerativa" id="EDsi" value="1" formControlName="esDegenerativa" [(ngModel)]="esDegenerativa" >
+                        <label class="form-check-label" for="EDsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esDegenerativa" id="EDno" value="0" formControlName="esDegenerativa" [(ngModel)]="esDegenerativa">
+                        <label class="form-check-label" for="EDno">No</label>
+                      </div>
+                      <input *ngIf="esDegenerativa == 1" name="esDegenerativaCUAL" formControlName="esDegenerativaCUAL" [(ngModel)]="esDegenerativaCUAL" type="text" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div><label>¿Pregunta repetida?</label></div>
+                    <div class="d-flex justify-content-around align-items-center">
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esRepetida" id="EPsi" value="1" formControlName="esRepetida" [(ngModel)]="esRepetida">
+                        <label class="form-check-label" for="EPsi">Si</label>
+                      </div>
+                      <div class="form-check d-flex justify-content-around align-items-center">
+                        <input class="form-check-input" type="radio" name="esRepetida" id="EPno" value="0" formControlName="esRepetida" [(ngModel)]="esRepetida">
+                        <label class="form-check-label" for="EPno">No</label>
+                      </div>
+                      <input *ngIf="esRepetida == 1" name="esRepetidaCUAL" formControlName="esRepetidaCUAL" [(ngModel)]="esRepetidaCUAL" type="text" class="form-control" placeholder="Cuales" style="width: 50%;"/>
+                    </div>
+                  </div>
+                  <div>
+                    <span>estatura</span>{{estatura}} <br>
+                    <span>peso</span>{{peso}} <br>
+                    <span>esCardiaco</span>{{esCardiaco}} <span>Cuales</span> {{esCardiacoCUAL}} <br>
+                    <span>esRespiratorio</span>{{esRespiratorio}} <span>Cuales</span> {{esRespiratorioCUAL}} <br> 
+                    <span>esCirugia</span>{{esCirugia}} <span>Cuales</span> {{esCirugiaCUAL}} <br>
+                    <span>esAlergia</span>{{esAlergia}} <span>Cuales</span> {{esAlergiaCUAL}} <br>
+                    <span>esDegenerativa</span>{{esDegenerativa}} <span>Cuales</span> {{esDegenerativaCUAL}} <br>
+                    <span>esRepetido</span>{{esRepetida}} <span>Cuales</span> {{esRepetidaCUAL}} <br>
+                  </div>
+              <div class="d-flex">
+                <div
+                  class="col-sm-6"
+                  style="text-align: start; margin-top: 20px"
+                >
+                  <button type="button" class="btn btn-primary" (click)="show=1">
+                    Anterior
+                  </button>
+                </div>
+                <div class="col-sm-6" style="text-align: end; margin-top: 20px">
+                  <button type="button" class="btn btn-primary" (click)="form2valid()">
+                    Siguiente
+                  </button>
+                </div>
+            </div>
+            </form>
+            </fieldset>
+          </div>
+          <div *ngIf="show==3">
+            <fieldset>
+                <form id="form3" [formGroup]="form3" class="row gx-6 gy-5 d-flex justify-content-evenly">
+                    <h2>Deportes</h2>
+                      <div class="col-4">
+                        <div><label>¿Te gusta el futbol?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="FUT" id="FUTsi" value="si" [(ngModel)]="FUT" formControlName="FUT">
+                            <label class="form-check-label" for="FUTsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="FUT" id="FUTsi" value="no" [(ngModel)]="FUT" formControlName="FUT">
+                            <label class="form-check-label" for="FUTno">No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div><label>¿Te gusta el baloncesto?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="BAL" id="BALsi" value="si" [(ngModel)]="BAL" formControlName="BAL">
+                            <label class="form-check-label" for="BALsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="BAL" id="BALsi" value="no" [(ngModel)]="BAL" formControlName="BAL">
+                            <label class="form-check-label" for="BALno">No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div><label>¿Te gusta el Voleibol?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="VOL" id="VOLsi" value="si" [(ngModel)]="VOL" formControlName="VOL">
+                            <label class="form-check-label" for="VOLsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="VOL" id="VOLsi" value="no" [(ngModel)]="VOL" formControlName="VOL">
+                            <label class="form-check-label" for="VOLno">No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <h2>Baile</h2>
+                      <div class="col-4">
+                        <div><label>¿Te gusta bailar salsa?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="SAL" id="SALsi" value="si" [(ngModel)]="SAL" formControlName="SAL">
+                            <label class="form-check-label" for="SALsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="SAL" id="SALsi" value="no" [(ngModel)]="SAL" formControlName="SAL">
+                            <label class="form-check-label" for="SALno">No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div><label>¿Te gusta bailar zumba?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="ZUM" id="ZUMsi" value="si" [(ngModel)]="ZUM" formControlName="ZUM">
+                            <label class="form-check-label" for="ZUMsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="ZUM" id="ZUMsi" value="no" [(ngModel)]="ZUM" formControlName="ZUM">
+                            <label class="form-check-label" for="ZUMno">No</label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div><label>¿Te gusta bailar folklor?</label></div>
+                        <div class="d-flex justify-content-around align-items-center">
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="FOL" id="FOLsi" value="si" [(ngModel)]="FOL" formControlName="FOL" >
+                            <label class="form-check-label" for="FOLsi">Si</label>
+                          </div>
+                          <div class="form-check d-flex justify-content-around align-items-center">
+                            <input class="form-check-input" type="radio" name="FOL" id="FOLsi" value="no" [(ngModel)]="FOL" formControlName="FOL">
+                            <label class="form-check-label" for="FOLno">No</label>
+                          </div>
+                        </div>
+                      </div>  
+                  <div class="d-flex">
+                    <div
+                      class="col-sm-6"
+                      style="text-align: start; margin-top: 20px"
+                    >
+                      <button type="button" class="btn btn-primary" (click)="show=2">
+                        Anterior
+                      </button>
+                    </div>
+                    <div class="col-sm-6" style="text-align: end; margin-top: 20px">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="form3valid()">
+                            Terminar
+                          </button>
+                    </div>
+                </div>
+                </form>
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="display: flex; align-items: center; flex-direction: column;">
+        <img src="../../../assets/recursos/Check.png" style="width: 25%; z-index:1;">
+      <div class="modal-content" style="
+      margin-top: -20px;
+      z-index: -1;
+      justify-content: center;
+      align-items: center;
+  ">
+        <div class="modal-header" style="border-bottom: none!important;">
+          <h2 class="modal-title" id="exampleModalLabel">Cuenta fue creada con éxito</h2>
+        </div>
+        <div class="modal-body">
+            Ahora puedes disfrutar de la plataforma y aprender jugando
+        </div>
+        <div class="modal-footer" style="border-top: none!important;">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" routerLink="/" routerLinkActive="active">Entendido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<app-footer></app-footer>
